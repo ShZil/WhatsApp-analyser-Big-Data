@@ -1,8 +1,10 @@
 # Rendering ------------------------------------------------------------------------------------------------------------
-import numpy as np
-import pandas as pd
-from matplotlib import pyplot as plt
-import matplotlib.patches as mpatches
+from import_handler import ImportDefence
+with ImportDefence():
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    import matplotlib.patches as mpatches
 
 import Alphabets
 import AlphabetsDataFrame

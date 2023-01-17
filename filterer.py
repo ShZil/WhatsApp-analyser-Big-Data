@@ -1,9 +1,11 @@
 # Filtering ------------------------------------------------------------------------------------------------------------
 from math import floor
-import matplotlib.patches as mpatches
-import numpy as np
-import pandas as pd
-from matplotlib import pyplot as plt
+from import_handler import ImportDefence
+with ImportDefence():
+    import matplotlib.patches as mpatches
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
 
 import Alphabets
 import AlphabetsDataFrame

@@ -1,5 +1,7 @@
-import matplotlib.pyplot as plt
-import pandas as pd
+from import_handler import ImportDefence
+with ImportDefence():
+    import matplotlib.pyplot as plt
+    import pandas as pd
 
 from AlphabetsDataFrame import AlphabetsDataFrame
 from BlocksDataFrame import BlocksDataFrame
