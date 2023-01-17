@@ -1,0 +1,9 @@
+render_final: 1
+optimize: false
+generate_names: ["Shakedy"]
+render_names: ["Shakedy"]
+joins_names: ["Shakedy"]
+titles_names: ["Shakedy"]
+filter_names: ["Shakedy"]
+colored: 1
+save_metadata: 1
