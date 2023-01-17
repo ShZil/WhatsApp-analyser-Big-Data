@@ -21,3 +21,7 @@ class Data:
     
     def __len__(self) -> int:
         return self.length
+    
+
+    def __getitem__(self, key):
+        return self.df[key]
