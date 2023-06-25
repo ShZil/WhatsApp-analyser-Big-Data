@@ -44,6 +44,7 @@ class TimeDataFrame(Data):
                 day = date.split('/')[0]
                 year = date.split('/')[2]
             else:
+                # ******** detect the format? It could be DD.MM.YYYY or MM.DD.YYYY
                 month = date.split('.')[0]
                 day = date.split('.')[1]
                 year = date.split('.')[2]
