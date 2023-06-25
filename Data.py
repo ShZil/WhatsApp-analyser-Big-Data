@@ -3,8 +3,12 @@ import pandas as pd
 class Data:
     def __init__(self, df: pd.DataFrame) -> None:
         self.df = df
-        self.length = len(df)
-        self.unpack = ', '.join(df.columns) + " = df.row(i)"
+        if df is None:
+            self.length = 0
+            self.unpack = "_ = df.row(i)"
+        else:
+            self.length = len(df)
+            self.unpack = ', '.join(df.columns) + " = df.row(i)"
     
 
     def row(self, i: int) -> tuple:

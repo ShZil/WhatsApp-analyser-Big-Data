@@ -12,6 +12,7 @@ import MessageTypeDataFrame
 import NormalDataFrame
 import TimeDataFrame
 import color
+from bidi.algorithm import get_display as bidir
 
 
 CHAT_PATH = 'raw'
@@ -244,7 +245,7 @@ def title_sequence(ndf, mtdf, colored):
     return '\n'.join(queue)
 
 
-def titles_list(ndf, mtdf, colored):
+def titles_list(ndf, mtdf, colored, to_print=False):
     yellow, end = color.YELLOW, color.END
     if not colored:
         yellow = end = ""
@@ -260,10 +261,10 @@ def titles_list(ndf, mtdf, colored):
                 queue.append(message[message.find(" to ")+len(" to "):].strip(' ').strip('\"'))
         elif mtype == "group-created":
             queue.append(message[message.find("created group")+len("created group"):].strip(' ').strip('\"'))
-    return ''.join([yellow + e + end + '\n' for e in non_repeating_list(queue, ndf.get_authors(), colored)])
+    return ''.join([yellow + e + end + '\n' for e in non_repeating_list(queue, ndf.get_authors(), colored, to_print)])
 
 
-def non_repeating_list(list0, authors, colored):
+def non_repeating_list(list0, authors, colored, to_print=False):
     # This function returns a list where no item is equal to the next, but there can be duplicates, just not immediately
     # [1, 1, 2, 1, 3, 3, 3, 3, 4, 2, 2] -> [1, 2, 1, 3, 4, 2]
     underline, end, yellow = color.UNDERLINE, color.END, color.YELLOW
@@ -277,7 +278,7 @@ def non_repeating_list(list0, authors, colored):
             return ["Private WhatsApp Chat of " + underline +
                     authors[0] + end + yellow]
         else:
-            return ["WhatsApp Chat between " + ' and '.join([underline + author + end + yellow for author in authors])]
+            return ["WhatsApp Chat between " + ' and '.join([underline + (bidir(author) if to_print else author) + end + yellow for author in authors])]
     if colored: print("Titles:")
     to_return = [list0[0]]
     for element in list0:

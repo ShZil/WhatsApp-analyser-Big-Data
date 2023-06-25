@@ -6,6 +6,7 @@ with ImportDefence():
     import numpy as np
     import pandas as pd
     from matplotlib import pyplot as plt
+    from bidi.algorithm import get_display as bidir
 
 import Alphabets
 import AlphabetsDataFrame
@@ -51,7 +52,7 @@ def start(name, ndf, tdf, mtdf, idf, adf):
                 print(f"{color.END}[{'-' * progress}{' ' * left}]", end='\r')
 
                 if condition_met(display, i, ndf, tdf, mtdf, idf, adf):
-                    print(f"{i} {date}, {time} - {author}: {text}")  # Add colours here!!!!!!
+                    print(f"{i} {color.CYAN}{date}{color.END}, {color.DARKCYAN}{time}{color.END} - {color.GREEN}{color.BOLD}{bidir(author)}{color.END}: {bidir(text)}{color.END}")
                     count += 1
             print(f"____________________________________________________________")  # Change to continuous lines (special charater)
             print(f"{color.BOLD}{count} message(s) passed the filter.{color.END} ({percent(count, int(ndf.shape[0]))}%)")

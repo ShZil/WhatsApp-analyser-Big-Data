@@ -11,6 +11,7 @@ class CharacterDataFrame(Data):
     def __init__(self, df: NormalDataFrame, run: bool):
         if not run:
             util.Time.append(0)
+            super().__init__(None)
             return None
         temp = timer()
         all = True

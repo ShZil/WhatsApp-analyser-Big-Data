@@ -1,7 +1,9 @@
+from Alphabets import count_hebrew
 from import_handler import ImportDefence
 with ImportDefence():
     import matplotlib.pyplot as plt
     import pandas as pd
+    from bidi.algorithm import get_display as bidir
 
 from AlphabetsDataFrame import AlphabetsDataFrame
 from BlocksDataFrame import BlocksDataFrame
@@ -75,7 +77,7 @@ def main():
             print("[███      ]", end="      \r")
             bdf = BlocksDataFrame(ndf, True)
             print("[████     ]", end="      \r")
-            cdf = CharacterDataFrame(ndf, not optimize)
+            cdf = CharacterDataFrame(ndf, not optimize) if not optimize else None
             print("[█████    ]", end="      \r")
             idf = IOCDataFrame(ndf, True)
             print("[██████   ]", end="      \r")
@@ -83,7 +85,7 @@ def main():
             print("[███████  ]", end="      \r")
             tdf = TimeDataFrame(ndf, True)
             print("[████████ ]", end="      \r")
-            wdf = WordsDataFrame(ndf, mtdf, not optimize)
+            wdf = WordsDataFrame(ndf, mtdf, not optimize) if not optimize else None
             print("[█████████]" + color.END)
         else:
             print(color.END + "Loading chat with " + color.UNDERLINE + name + color.END + ". " +
@@ -100,13 +102,15 @@ def main():
             if colored:
                 print(color.END)
             print(util.participant_queue(ndf, mtdf))
-            print("Participants:\n    ", '\n    '.join(ndf.get_authors()))
+            print("Participants:")
+            for author in ndf.get_authors():
+                print('    ' + bidir(author))
             if not optimize:
                 util.common_names(ndf, wdf)
         if name in titles_names or titles_names == ["*"]:
             if colored:
                 print(color.END)
-            print(util.titles_list(ndf, mtdf, colored))
+            print(util.titles_list(ndf, mtdf, colored, to_print=True))
             if save_metadata:
                 files.save(util.titles_list(ndf, mtdf, False), name, "titles")
         files.save_dfs(adf, tdf, cdf, mtdf, wdf, idf, bdf, name)
