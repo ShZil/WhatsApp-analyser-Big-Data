@@ -14,7 +14,7 @@ def to_messages(path):
     i = -1
     for line in lines:
         line = line.replace('\u200E', '')
-        if util.date(line[0:11]):
+        if util.date(line[0:12]):
             i += 1
             # first line in message
             try:

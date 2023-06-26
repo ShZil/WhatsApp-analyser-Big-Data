@@ -87,9 +87,20 @@ class TimeDataFrame(Data):
                     day, month, year = date_formats[0][date]
                     weekday = datetime.datetime(year=int(year), month=int(month), day=int(day)).date().weekday()
                 except (ValueError, IndexError):
-                    print(f"Date \"{date}\" is not of format {date_formats.pop(0)}. Switching format.")
-                    restart = True
-                    continue
+                    if i > 10:
+                        # copy previous date&time
+                        hours.append(hours[-1])
+                        minutes.append(minutes[-1])
+                        days.append(days[-1])
+                        months.append(months[-1])
+                        years.append(years[-1])
+                        weekdays.append(weekdays[-1])
+                        months_since.append(months_since[-1])
+                        daily_ids.append(daily_ids[-1])
+                    else:
+                        print(f"Date \"{date}\" is not of format {date_formats.pop(0)}. Switching format.")
+                        restart = True
+                        continue
                 month_id = int(year) * 12 + int(month)
                 day_id = month_id * 31 + int(day)
 
