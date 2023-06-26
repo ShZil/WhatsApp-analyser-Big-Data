@@ -100,7 +100,7 @@ class TimeDataFrame(Data):
                     else:
                         print(f"Date \"{date}\" is not of format {date_formats.pop(0)}. Switching format.")
                         restart = True
-                        continue
+                    continue
                 month_id = int(year) * 12 + int(month)
                 day_id = month_id * 31 + int(day)
 
