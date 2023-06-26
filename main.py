@@ -37,6 +37,7 @@ import filterer
 # Most common names (collision between participants' names and most common words. Note that a participant's name might include spaces)
 # graph of message count per day
 # Split alphabets render by user
+# Time estimate for generation, assuming linear growth O(n)
 
 
 # Main -----------------------------------------------------------------------------------------------------------------
