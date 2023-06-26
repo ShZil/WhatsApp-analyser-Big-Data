@@ -290,7 +290,10 @@ def non_repeating_list(list0, authors, colored, to_print=False):
 def common_names(ndf, wdf):
     print("Most commonly used participants' names:")
     authors = ndf.get_authors()
-    authors.remove("WhatsApp")
+    try:
+        authors.remove("WhatsApp")
+    except ValueError:
+        pass
     names = []
     for author in authors:
         names.extend(author.split(' '))

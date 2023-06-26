@@ -120,7 +120,10 @@ def render_lengths(ax, ndf, tdf, name):
     months = tdf.get_months()
     x = list(range(len(months)))
     authors = ndf.get_authors()
-    authors.remove("WhatsApp")
+    try:
+        authors.remove("WhatsApp")
+    except ValueError:
+        pass
     values = {}
     sums = {i: 0 for i in months}
     for author in authors:
