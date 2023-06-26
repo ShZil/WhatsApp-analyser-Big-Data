@@ -17,6 +17,13 @@ def to_messages(path):
         if util.date(line[0:11]):
             i += 1
             # first line in message
+            try:
+                if '[' in line and ']' in line and line.index(']') < line.index(':', line.index(':', line.index(':') + 1) + 1):
+                    line = line.replace('[', '')
+                    line = line[0:util.find_2nd(line, ':')] + line[util.find_2nd(line, ':')+3:]
+                    line = line.replace(']', ' -')
+            except (ValueError, IndexError):
+                pass
             messages.append(line)
         elif i == -1:
             print("Invalid file!")
