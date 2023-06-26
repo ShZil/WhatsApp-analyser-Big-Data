@@ -1,5 +1,5 @@
 render_final: 1
-optimize: false
+optimize: 1
 generate_names: ["*"]
 render_names: ["*"]
 joins_names: ["*"]

@@ -76,8 +76,12 @@ class TimeDataFrame(Data):
                     # month_id = 0
                     #     day_id = 0
                 # else:
-                hour = time.split(':')[0]
-                minute = time.split(':')[1]
+                if ':' in time:
+                    hour = time.split(':')[0]
+                    minute = time.split(':')[1]
+                else:
+                    hour = 0
+                    minute = 0
                 
                 try:
                     day, month, year = date_formats[0][date]

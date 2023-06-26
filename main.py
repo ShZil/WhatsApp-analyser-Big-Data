@@ -34,10 +34,11 @@ import filterer
 # Percentage of Media and Voice messages
 # frequency of given selected word or character graph.
 # Probability of rare phrases raises if previous message includes some rare phrase (conditional probability)
-# Most common names (collision between participants' names and most common words. Note that a participant's name might include spaces)
 # graph of message count per day
 # Split alphabets render by user
 # Time estimate for generation, assuming linear growth O(n)
+# Present character frequencies on log scale
+# Statistics on filter results -- by author
 
 
 # Main -----------------------------------------------------------------------------------------------------------------
@@ -97,7 +98,7 @@ def main():
             if ndf is None or tdf is None:
                 continue
 
-        relations.append(util.find_avgs(ndf, idf, bdf, tdf))
+        # relations.append(util.find_avgs(ndf, idf, bdf, tdf))
         counts.append(len(ndf))
 
         if name in joins_names or joins_names == ["*"]:
