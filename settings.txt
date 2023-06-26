@@ -1,9 +1,9 @@
 render_final: 1
-optimize: true
-generate_names: ["Nadlan"]
-render_names: []
-joins_names: ["Nadlan"]
-titles_names: ["Nadlan"]
-filter_names: ["Nadlan"]
+optimize: false
+generate_names: ["*"]
+render_names: ["*"]
+joins_names: ["*"]
+titles_names: ["*"]
+filter_names: ["*"]
 colored: 1
 save_metadata: 1
