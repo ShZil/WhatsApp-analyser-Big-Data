@@ -36,6 +36,7 @@ import filterer
 # Probability of rare phrases raises if previous message includes some rare phrase (conditional probability)
 # Most common names (collision between participants' names and most common words. Note that a participant's name might include spaces)
 # graph of message count per day
+# Split alphabets render by user
 
 
 # Main -----------------------------------------------------------------------------------------------------------------
