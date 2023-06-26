@@ -59,7 +59,7 @@ class TimeDataFrame(Data):
         # months since idk 2000 or something (combine year and month ez).
         daily_ids = []
         # an ID for every day, like the months_since.
-        date_formats = [SlashesDMYFormat(), DotsDMYFormat(), DotsMDYFormat()]
+        date_formats: list[DateFormat] = [SlashesDMYFormat(), DotsDMYFormat(), DotsMDYFormat()]
         # formats to parse the dates.
         restart = True
         while restart:
@@ -87,7 +87,7 @@ class TimeDataFrame(Data):
                     day, month, year = date_formats[0][date]
                     weekday = datetime.datetime(year=int(year), month=int(month), day=int(day)).date().weekday()
                 except (ValueError, IndexError):
-                    date_formats.pop(0)
+                    print(f"Date \"{date}\" is not of format {date_formats.pop(0)}. Switching format.")
                     restart = True
                     continue
                 month_id = int(year) * 12 + int(month)
