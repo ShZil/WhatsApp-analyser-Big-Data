@@ -1,4 +1,5 @@
 from Alphabets import count_hebrew
+from Data import Data
 from import_handler import ImportDefence
 with ImportDefence():
     import matplotlib.pyplot as plt
@@ -93,8 +94,12 @@ def main():
         else:
             print(color.END + "Loading chat with " + color.UNDERLINE + name + color.END + ". " +
                   color.RED + util.progress(name, names, "[- ]") + color.END + color.GREEN)
-            ndf = files.get_df(name)
-            adf, tdf, cdf, mtdf, wdf, idf, bdf = files.get_dfs(name)
+            ndf = NormalDataFrame([])
+            df = files.get_df(name)
+            ndf.df = df
+            ndf.length = len(df)
+            adf, tdf, cdf, mtdf, wdf, idf, bdf = files.get_dfs(name, optimize)
+            mtdf = Data(mtdf)
             if ndf is None or tdf is None:
                 continue
 
@@ -106,8 +111,13 @@ def main():
                 print(color.END)
             print(util.participant_queue(ndf, mtdf))
             print("Participants:")
-            for author in ndf.get_authors():
-                print('    ' + bidir(author))
+            try:
+                for author in ndf.get_authors():
+                    print('    ' + bidir(author))
+            except AttributeError:
+                ndf = Data(ndf)
+                for author in set([ndf.row(i)[2] for i in range(len(ndf))]):
+                    print('    ' + bidir(author))
             if not optimize:
                 util.common_names(ndf, wdf)
         if name in titles_names or titles_names == ["*"]:
@@ -126,7 +136,10 @@ def main():
     if render_final:
         render.render_relations(names, relations)
     if generate_names:
-        times = pd.DataFrame(util.Time.get(), columns=['Name', 'Messages', 'NDF', 'ADF', 'BDF', 'CDF', 'IDF', 'MTDF', 'TDF', 'WDF'])
+        columns = ['Name', 'Messages', 'NDF', 'ADF', 'BDF', 'IDF', 'MTDF', 'TDF']
+        if not optimize:
+            columns = ['Name', 'Messages', 'NDF', 'ADF', 'BDF', 'CDF', 'IDF', 'MTDF', 'TDF', 'WDF']
+        times = pd.DataFrame(util.Time.get(), columns=columns)
         lengths = pd.DataFrame(zip(names, counts, [len(open(path, 'r', encoding='utf-8').readlines()) for path in paths]), columns=['Name', 'Count', 'Rows'])
         fig, (ax1, ax2) = plt.subplots(2, 1)
         render.display_lengths(lengths, ax1)

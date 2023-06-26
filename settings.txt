@@ -1,6 +1,6 @@
 render_final: 1
 optimize: 1
-generate_names: ["*"]
+generate_names: []
 render_names: ["*"]
 joins_names: ["*"]
 titles_names: ["*"]

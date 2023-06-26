@@ -48,7 +48,11 @@ class AlphabetsDataFrame(Data):
 
 
 def per_month(this, time_df):
-    merged = pd.merge(this.df, time_df, left_index=True, right_index=True)
+    if hasattr(this, 'df'):
+        df = this.df
+    else:
+        df = this
+    merged = pd.merge(df, time_df, left_index=True, right_index=True)
     merged = merged[['length', 'english-letters', 'hebrew-letters', 'punctuation', 'math', 'emojis', 'whitespace', 'monthly-index']]
     merged = merged.groupby("monthly-index").mean()
     merged['month'] = merged.index

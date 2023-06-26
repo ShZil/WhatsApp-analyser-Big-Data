@@ -34,13 +34,13 @@ def to_messages(path):
     return messages
 
 
-def get_dfs(name):
+def get_dfs(name, optimize):
     try:
         return (pd.read_csv(f'saved/{name}/chat_messages.csv', header=0, index_col='index'),
                 pd.read_csv(f'saved/{name}/chat_time.csv', header=0, index_col='index'),
-                pd.read_csv(f'saved/{name}/chat_characters.csv', header=0, index_col='char'),
+                pd.read_csv(f'saved/{name}/chat_characters.csv', header=0, index_col='char') if not optimize else None,
                 pd.read_csv(f'saved/{name}/chat_message_types.csv', header=0, index_col='index'),
-                pd.read_csv(f'saved/{name}/chat_words.csv', header=0, index_col='index'),
+                pd.read_csv(f'saved/{name}/chat_words.csv', header=0, index_col='index') if not optimize else None,
                 pd.read_csv(f'saved/{name}/chat_ioc.csv', header=0, index_col='index'),
                 pd.read_csv(f'saved/{name}/chat_blocks.csv', header=0, index_col='index'))
     except FileNotFoundError:

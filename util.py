@@ -5,6 +5,7 @@ import pandas as pd
 
 import Alphabets
 import BlocksDataFrame
+from Data import Data
 import IOCDataFrame
 import os
 
@@ -187,9 +188,21 @@ def parse_settings():
 # Pseudo DataFrames
 def participant_queue(ndf, mtdf):
     queue = []
-    for inc in range(len(list(mtdf.df['ind']))):
+    try:
+        df = mtdf.df
+    except AttributeError:
+        df = mtdf
+        mtdf = Data(df)
+    if not isinstance(ndf, Data):
+        ndf = Data(ndf)
+    for inc in range(len(list(df['ind']))):
         ind, mtype, mtauthor, arg = mtdf.row(inc)
-        date, time, author, message = ndf.row(ind)
+        date, time, author, message, *rest = ndf.row(ind)
+        if len(rest) == 1:
+            date = time
+            time = author
+            author = message
+            message = rest[0]
         if mtype == "participant-join":
             queue.append(date + ', ' + time + ':\n    ' + color.GREEN +
                          '\n    '.join(join_message(message)) + color.END)
@@ -225,7 +238,12 @@ def titles_queue(ndf, mtdf, colored):
     queue = []
     for inc in range(len(list(mtdf.df['ind']))):
         ind, mtype, mtauthor, arg = mtdf.row(inc)
-        date, time, author, message = ndf.row(ind)
+        date, time, author, message, *rest = ndf.row(ind)
+        if len(rest) == 1:
+            date = time
+            time = author
+            author = message
+            message = rest[0]
         if mtype == "title-change":
             queue.append(date + ', ' + time + ':    ' + (color.YELLOW if colored else '') +
                          '\n'.join(title_message(message, colored)) + (color.END if colored else ''))
@@ -243,7 +261,12 @@ def title_sequence(ndf, mtdf, colored):
     queue = []
     for inc in range(len(list(mtdf.df['ind']))):
         ind, mtype, mtauthor, arg = mtdf.row(inc)
-        date, time, author, message = ndf.row(ind)
+        date, time, author, message, *rest = ndf.row(ind)
+        if len(rest) == 1:
+            date = time
+            time = author
+            author = message
+            message = rest[0]
         if mtype == "title-change":
             if message.find(" to ") == -1:
                 continue
@@ -261,7 +284,12 @@ def titles_list(ndf, mtdf, colored, to_print=False):
     queue = []
     for inc in range(len(list(mtdf.df['ind']))):
         ind, mtype, mtauthor, arg = mtdf.row(inc)
-        date, time, author, message = ndf.row(ind)
+        date, time, author, message, *rest = ndf.row(ind)
+        if len(rest) == 1:
+            date = time
+            time = author
+            author = message
+            message = rest[0]
         if mtype == "title-change":
             if message.find(" to ") == -1:
                 continue
