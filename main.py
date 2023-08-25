@@ -40,6 +40,8 @@ import filterer
 # Time estimate for generation, assuming linear growth O(n)
 # Present character frequencies on log scale
 # Statistics on filter results -- by author
+# Chat comparison -- what is the probability that two chat files represent the same convo from different perspecfives?
+# Date comparison in filter: `date > 2022/01/05`
 
 
 # Main -----------------------------------------------------------------------------------------------------------------
